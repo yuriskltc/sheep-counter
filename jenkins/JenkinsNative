@@ -1,0 +1,46 @@
+
+node {
+    def server
+
+    def rtMaven = Artifactory.newMavenBuild()
+
+    def buildInfo
+
+    tools{
+        maven 'Maven'
+    }    
+
+
+    stage ('Artifactory configuration') {
+        server = Artifactory.server 'JFROGTST'
+    }
+    stage('Fetch') {
+        
+        git credentialsId: 'GITHUB', url: 'https://github.com/yuriskltc/simple-java-maven-app.git'
+    }
+    stage('Test') {
+         //rtMaven.run pom: 'pom.xml', goals: '-DmavenLocalRepo="" -DmavenSettingsFilePath="" -Dv=${BUILD_NUMBER} test -U '
+         sh 'mvn -Dv=${BUILD_NUMBER} test'
+         
+    }
+    stage('Build') {
+          sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package'
+          //rtMaven.run pom: 'pom.xml', goals: '-DmavenLocalRepo="" -DmavenSettingsFilePath="" -Dv=${BUILD_NUMBER} clean package -U ', buildInfo: buildInfo
+    }
+   
+    stage ('Deploy') {
+       //     rtMaven.deployer.deployArtifacts buildInfo
+         def uploadSpec = """{
+            "files": [{
+                "pattern": "simple-java-maven-app/build/libs/*.jar",
+                "target": "my-libs-release-local"
+                }
+              ]
+            }"""
+
+      server.upload(uploadSpec)
+    }
+    /*stage ('Publish build info') {
+            server.publishBuildInfo buildInfo
+    }*/
+}
