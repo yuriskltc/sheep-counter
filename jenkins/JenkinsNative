@@ -37,13 +37,13 @@ node  {
           //  steps {
                 //script{
                     
-                    def uploadSpec = """{
+                    def uploadSpec = '''{
                         "files": [{
                             "pattern": "target/*.jar",
                             "target": "my-libs-release-local"
                             }
                             ]
-                        }"""
+                        }'''
                     server.upload(uploadSpec)
               //  }
             //}
