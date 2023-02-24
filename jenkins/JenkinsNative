@@ -8,8 +8,10 @@ pipeline {
     stages {
         stage ('Artifactory configuration') {
             steps {
-                def server
-                server = Artifactory.server 'JFROGTST'
+                script {
+                    def server
+                    server = Artifactory.server 'JFROGTST'
+                }
             }
         }
         stage('Fetch') {
@@ -32,14 +34,16 @@ pipeline {
         stage ('Deploy') {
             steps {
                 //     rtMaven.deployer.deployArtifacts buildInfo
-                def uploadSpec = """{
-                    "files": [{
-                        "pattern": "simple-java-maven-app/build/libs/*.jar",
-                        "target": "my-libs-release-local"
-                        }
-                        ]
-                    }"""
-                server.upload(uploadSpec)
+                script{
+                    def uploadSpec = """{
+                        "files": [{
+                            "pattern": "simple-java-maven-app/build/libs/*.jar",
+                            "target": "my-libs-release-local"
+                            }
+                            ]
+                        }"""
+                    server.upload(uploadSpec)
+                }
             }
         }
     }
