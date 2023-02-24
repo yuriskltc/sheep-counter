@@ -12,9 +12,9 @@ node  {
     }
     withMaven(maven:'Maven') {
       stage('Test') {
-        {
+        
             sh 'mvn -Dv=${BUILD_NUMBER} test'
-        }
+        
       }
       stage('Build') {
         sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package'
