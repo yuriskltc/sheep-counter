@@ -1,26 +1,26 @@
 
 node  {
-//    agent any
+
     
 
-//    stage ('Artifactory configuration') {
-//         def server
-//        server = Artifactory.server 'JFROGTST'
-//    }
-//    stage('Fetch') {
-//        git credentialsId: 'GITHUB', url: 'https://github.com/yuriskltc/simple-java-maven-app.git'
-//    }
-//    stage('configure maven'){
-//        withMaven(maven:'Maven') 
- //   }
+    stage ('Artifactory configuration') {
+         def server
+        server = Artifactory.server 'JFROGTST'
+    }
+    stage('Fetch') {
+        git credentialsId: 'GITHUB', url: 'https://github.com/yuriskltc/simple-java-maven-app.git'
+    }
+    stage('configure maven'){
+        withMaven(maven:'Maven') 
+    }
     stage('Test') {
         sh 'mvn -Dv=${BUILD_NUMBER} test'
     }
-    /*    stage('Build') {
+        stage('Build') {
         sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package'
-    }*/
+    }
     stage ('Deploy') {
-            /*        def uploadSpec =
+                    def uploadSpec =
                         '''{
                             "files": [
                                 {
@@ -30,6 +30,6 @@ node  {
                                 }
                             ]
                         }'''    
-          server.upload(uploadSpec)*/
+          server.upload(uploadSpec)
     }
 }
