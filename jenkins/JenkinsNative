@@ -21,7 +21,8 @@ node  {
       }
     }
     stage ('Deploy') {
-        sh 'ls target/'
+        
+        def buildInfo = Artifactory.newBuildInfo()
         uploadSpec =
              '''{
                 "files": [
@@ -35,6 +36,8 @@ node  {
                     
                 ]
              }'''    
-        server.upload spec: uploadSpec
+        buildInfo.env.collect()
+        server.upload spec: uploadSpec, buildInfo: buildInfo
+        server.publishBuildInfo buildInfo
     }
 }
