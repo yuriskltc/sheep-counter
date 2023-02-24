@@ -10,9 +10,9 @@ node  {
     stage('Fetch') {
         git credentialsId: 'GITHUB', url: 'https://github.com/yuriskltc/simple-java-maven-app.git'
     }
-    stage('configure maven'){
-        withMaven(maven:'Maven') 
-    }
+//    stage('configure maven'){
+//        withMaven(maven:'Maven') 
+ //   }
     stage('Test') {
         sh 'mvn -Dv=${BUILD_NUMBER} test'
     }
