@@ -8,10 +8,10 @@ node  {
   //  stages {
         stage ('Artifactory configuration') {
     //        steps {
-                script {
+        //        script {
                     def server
                     server = Artifactory.server 'JFROGTST'
-                }
+            //    }
       //      }
         }
         stage('Fetch') {
