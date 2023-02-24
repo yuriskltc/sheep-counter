@@ -28,9 +28,13 @@ node  {
                     {
                         "pattern": "target/*.jar",
                         "target": "my-libs-release-local"                  
+                    }, {
+                        "pattern": "**/target/*.pom",
+                        "target": "my-libs-release-local"
                     }
+                    
                 ]
              }'''    
-        server.upload(uploadSpec)
+        server.upload spec: uploadSpec
     }
 }
