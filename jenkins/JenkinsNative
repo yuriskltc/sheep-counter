@@ -36,14 +36,14 @@ pipeline {
                 //     rtMaven.deployer.deployArtifacts buildInfo
                 script{
                     sh 'find . |grep jar'
-                    def uploadSpec = """{
+                    /*def uploadSpec = """{
                         "files": [{
                             "pattern": "simple-java-maven-app/build/libs/*.jar",
                             "target": "my-libs-release-local"
                             }
                             ]
                         }"""
-                    server.upload(uploadSpec)
+                    server.upload(uploadSpec)*/
                 }
             }
         }
