@@ -27,12 +27,12 @@ node  {
                 sh 'mvn -Dv=${BUILD_NUMBER} test'
             //}
         }
-        stage('Build') {
+    /*    stage('Build') {
             //steps {
                 sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package'
           
         //    }
-        }
+        }*/
         stage ('Deploy') {
           //  steps {
                 //script{
