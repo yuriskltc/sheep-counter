@@ -5,7 +5,7 @@ node {
     tools {
         maven 'Maven'
     }
-    //stages {
+    stages {
         stage ('Artifactory configuration') {
             steps {
                 def server
@@ -42,5 +42,5 @@ node {
                 server.upload(uploadSpec)
             }
         }
-    //}
+    }
 }
