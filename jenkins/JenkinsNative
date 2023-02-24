@@ -1,15 +1,7 @@
 
-pipeline {
+node {
     def server
-
-    
-
-    
-
-    tools{
-        maven 'Maven'
-    }    
-
+   
 
     stage ('Artifactory configuration') {
         server = Artifactory.server 'JFROGTST'
