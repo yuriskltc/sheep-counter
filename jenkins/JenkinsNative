@@ -1,10 +1,10 @@
 
 node  {
     def uploadSpec
-    
+    def server
 
     stage ('Artifactory configuration') {
-         def server
+         
         server = Artifactory.server 'JFROGTST'
     }
     stage('Fetch') {
