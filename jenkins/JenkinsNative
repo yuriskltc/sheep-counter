@@ -21,7 +21,8 @@ node  {
       }
     }
     stage ('Deploy') {
-        sh 'find . | grep pom'
+        //sh 'find . | grep pom'
+        sh 'cp pom.xml target/my-app-1.1.${BUILD_NUMBER}-SNAPSHOT.pom'
         def buildInfo = Artifactory.newBuildInfo()
         uploadSpec =
              '''{
