@@ -35,6 +35,7 @@ pipeline {
             steps {
                 //     rtMaven.deployer.deployArtifacts buildInfo
                 script{
+                    sh 'find . |grep jar'
                     def uploadSpec = """{
                         "files": [{
                             "pattern": "simple-java-maven-app/build/libs/*.jar",
