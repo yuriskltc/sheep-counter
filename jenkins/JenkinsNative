@@ -1,6 +1,6 @@
 
 node  {
-
+    def uploadSpec
     
 
     stage ('Artifactory configuration') {
@@ -21,16 +21,16 @@ node  {
       }
     }
     stage ('Deploy') {
-                    def uploadSpec =
-                        '''{
-                            "files": [
-                                {
-                                    "pattern": "target/*.jar",
-                                    "target": "my-libs-release-local"
-                    
-                                }
-                            ]
-                        }'''    
-          server.upload(uploadSpec)
+        sh 'ls target/'
+        uploadSpec =
+             '''{
+                "files": [
+                    {
+                        "pattern": "target/*.jar",
+                        "target": "my-libs-release-local"                  
+                    }
+                ]
+             }'''    
+        //server.upload(uploadSpec)
     }
 }
