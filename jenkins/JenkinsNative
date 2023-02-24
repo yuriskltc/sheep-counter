@@ -21,29 +21,27 @@ pipeline {
         }
         stage('Test') {
             steps {
-                //rtMaven.run pom: 'pom.xml', goals: '-DmavenLocalRepo="" -DmavenSettingsFilePath="" -Dv=${BUILD_NUMBER} test -U '
                 sh 'mvn -Dv=${BUILD_NUMBER} test'
             }
         }
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package'
-                //rtMaven.run pom: 'pom.xml', goals: '-DmavenLocalRepo="" -DmavenSettingsFilePath="" -Dv=${BUILD_NUMBER} clean package -U ', buildInfo: buildInfo
+          
             }
         }
         stage ('Deploy') {
             steps {
-                //     rtMaven.deployer.deployArtifacts buildInfo
                 script{
-                    sh 'ls target/ '
-                    /*def uploadSpec = """{
+                    
+                    def uploadSpec = """{
                         "files": [{
-                            "pattern": "simple-java-maven-app/build/libs/*.jar",
+                            "pattern": "target/*.jar",
                             "target": "my-libs-release-local"
                             }
                             ]
                         }"""
-                    server.upload(uploadSpec)*/
+                    server.upload(uploadSpec)
                 }
             }
         }
