@@ -2,48 +2,24 @@
 node  {
     agent any
     
-    //tools {//.
-//        maven 'Maven'
-//    }
-  //  stages {
-        stage ('Artifactory configuration') {
-    //        steps {
-        //        script {
-                    def server
-                    server = Artifactory.server 'JFROGTST'
-            //    }
-      //      }
-        }
-        stage('Fetch') {
-        //    steps {
-                git credentialsId: 'GITHUB', url: 'https://github.com/yuriskltc/simple-java-maven-app.git'
-          //  }
-        }
-        stage('configure maven'){
-            withMaven(maven:'Maven') 
-        }
-        stage('Test') {
-            //steps {
-                sh 'mvn -Dv=${BUILD_NUMBER} test'
-            //}
-        }
+
+    stage ('Artifactory configuration') {
+         def server
+         server = Artifactory.server 'JFROGTST'
+    }
+    stage('Fetch') {
+        git credentialsId: 'GITHUB', url: 'https://github.com/yuriskltc/simple-java-maven-app.git'
+    }
+    stage('configure maven'){
+        withMaven(maven:'Maven') 
+    }
+    stage('Test') {
+        sh 'mvn -Dv=${BUILD_NUMBER} test'
+    }
     /*    stage('Build') {
-            //steps {
-                sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package'
-          
-        //    }
-        }*/
-        stage ('Deploy') {
-          //  steps {
-                //script{
-                    
-            /*        def uploadSpec = '''{
-                        "files": [{
-                            "pattern": "target/*.jar",
-                            "target": "my-libs-release-local"
-                            }
-                            ]
-                        }'''*/
+        sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package'
+    }*/
+    stage ('Deploy') {
             /*        def uploadSpec =
                         '''{
                             "files": [
@@ -54,11 +30,6 @@ node  {
                                 }
                             ]
                         }'''    
-                        
-                        
-                    server.upload(uploadSpec)*/
-              //  }
-            //}
-  //      }
+          server.upload(uploadSpec)*/
     }
 }
