@@ -31,7 +31,7 @@ node  {
                         "pattern": "target/*.jar",
                         "target": "my-libs-release-local"                  
                     }, {
-                        "pattern": "**/target/*.pom",
+                        "pattern": "target/*.pom",
                         "target": "my-libs-release-local"
                     }
                     
