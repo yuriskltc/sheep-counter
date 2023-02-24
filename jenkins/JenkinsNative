@@ -1,15 +1,15 @@
 
 node  {
-    agent any
+//    agent any
     
 
-    stage ('Artifactory configuration') {
-         def server
-         server = Artifactory.server 'JFROGTST'
-    }
-    stage('Fetch') {
-        git credentialsId: 'GITHUB', url: 'https://github.com/yuriskltc/simple-java-maven-app.git'
-    }
+//    stage ('Artifactory configuration') {
+//         def server
+//        server = Artifactory.server 'JFROGTST'
+//    }
+//    stage('Fetch') {
+//        git credentialsId: 'GITHUB', url: 'https://github.com/yuriskltc/simple-java-maven-app.git'
+//    }
 //    stage('configure maven'){
 //        withMaven(maven:'Maven') 
  //   }
