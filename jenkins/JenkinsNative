@@ -5,7 +5,7 @@ pipeline  {
         server = ''
     }
     tools {
-        maven "MAVEN"
+        maven "Maven"
     }
     stages{
         stage ('Artifactory configuration') {         
