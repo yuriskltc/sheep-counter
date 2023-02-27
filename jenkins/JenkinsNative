@@ -5,35 +5,35 @@ pipeline  {
         server = ''
     }
     stages{
-    stage ('Artifactory configuration') {         
-        steps{
-             server = Artifactory.server 'JFROGTST'
-         }
-    }
-    stage('Fetch') {
-        steps {
-            git credentialsId: 'GITHUB', url: 'https://github.com/yuriskltc/simple-java-maven-app.git'
-         }
-    }
-    //withMaven(maven:'Maven') {
-    stage('Test') {        
+        stage ('Artifactory configuration') {         
+            steps{
+                 server = Artifactory.server 'JFROGTST'
+             }
+        }
+        stage('Fetch') {
+            steps {
+                git credentialsId: 'GITHUB', url: 'https://github.com/yuriskltc/simple-java-maven-app.git'
+            }
+        }
+        //withMaven(maven:'Maven') {
+        stage('Test') {        
             steps{
                 withMaven{
-                sh 'mvn -Dv=${BUILD_NUMBER} test'        
+                    sh 'mvn -Dv=${BUILD_NUMBER} test'        
                 }
             }
-    }
-    stage('Build') {
-        steps{
-            sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package'
         }
-      }
-    }
-    stage ('Deploy') {      
-        steps{
-            sh 'cp pom.xml target/my-app.1.1.{BUILD_NUMBER}.pom'
-            buildInfo = Artifactory.newBuildInfo()
-            uploadSpec = '''{
+        stage('Build') {
+            steps{
+                sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package'
+            }
+        }
+    
+        stage ('Deploy') {      
+            steps{
+                sh 'cp pom.xml target/my-app.1.1.{BUILD_NUMBER}.pom'
+                buildInfo = Artifactory.newBuildInfo()
+                uploadSpec = '''{
                     "files": [
                         {
                             "pattern": "target/*.jar",
@@ -43,15 +43,15 @@ pipeline  {
                             "target": "my-libs-release-local"
                         }]
                 }'''    
-            buildInfo.env.collect()
-            server.upload spec: uploadSpec, buildInfo: buildInfo
-            server.publishBuildInfo buildInfo
-         }
-    }
-    stage ('PostBuild') {
-        steps{
-            build job: 'CD pipeline', parameters [string(name: 'BUILDNUM', value: ${BUILD_NUMBER} )]
+                buildInfo.env.collect()
+                server.upload spec: uploadSpec, buildInfo: buildInfo
+                server.publishBuildInfo buildInfo
+            }
         }
-    }
+        stage ('PostBuild') {
+            steps{
+                build job: 'CD pipeline', parameters [string(name: 'BUILDNUM', value: ${BUILD_NUMBER} )]
+            }
+        }
     }
 }
