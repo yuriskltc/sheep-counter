@@ -33,10 +33,6 @@ pipeline  {
         stage ('Deploy') {   
             environment{
                 buildInfo = Artifactory.newBuildInfo()
-            }
-            steps{
-                sh 'cp pom.xml target/my-app.1.1.{BUILD_NUMBER}.pom'
-                
                 uploadSpec = '''{
                     "files": [
                         {
@@ -47,6 +43,9 @@ pipeline  {
                             "target": "my-libs-release-local"
                         }]
                 }'''    
+            }         
+            steps{                               
+                sh 'cp pom.xml target/my-app.1.1.{BUILD_NUMBER}.pom'
                 buildInfo.env.collect()
                 server.upload spec: uploadSpec, buildInfo: buildInfo
                 server.publishBuildInfo buildInfo
