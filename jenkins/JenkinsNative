@@ -10,6 +10,7 @@ pipeline  {
             environment{
                  server = Artifactory.server 'JFROGTST'
             }
+            steps{}
         }
         stage('Fetch') {
             steps {
