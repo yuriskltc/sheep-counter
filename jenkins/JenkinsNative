@@ -28,7 +28,9 @@ pipeline  {
         }
         stage('Build') {
             steps{
-                sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package'
+                withMaven(maven:'Maven'){
+                    sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package'
+                }
             }
         }
     
