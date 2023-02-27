@@ -1,8 +1,9 @@
 
 pipeline  {
-    def uploadSpec
-    def server
-
+    environment {
+        uploadSpec
+        server
+    }
     stage ('Artifactory configuration') {         
         steps{
              server = Artifactory.server 'JFROGTST'
