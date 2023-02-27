@@ -11,17 +11,14 @@ node  {
         git credentialsId: 'GITHUB', url: 'https://github.com/yuriskltc/simple-java-maven-app.git'
     }
     withMaven(maven:'Maven') {
-      stage('Test') {
-        
-            sh 'mvn -Dv=${BUILD_NUMBER} test'
-        
+      stage('Test') {        
+            sh 'mvn -Dv=${BUILD_NUMBER} test'        
       }
       stage('Build') {
         sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package'
       }
     }
-    stage ('Deploy') {
-        //sh 'find . | grep pom'
+    stage ('Deploy') {      
         sh 'cp pom.xml target/my-app.pom'
         def buildInfo = Artifactory.newBuildInfo()
         uploadSpec =
@@ -37,9 +34,11 @@ node  {
                     
                 ]
              }'''    
-      //  server.upload spec: uploadSpec
         buildInfo.env.collect()
         server.upload spec: uploadSpec, buildInfo: buildInfo
         server.publishBuildInfo buildInfo
+    }
+    stage ('PostBuild') {
+         build job: 'CD pipeline', parameters [string(name: 'BUILDNUM', value: ${BUILD_NUMBER} )]
     }
 }
