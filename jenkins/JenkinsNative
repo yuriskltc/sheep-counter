@@ -29,7 +29,7 @@ pipeline  {
         stage('Build') {
             steps{
                 withMaven(maven:'Maven'){
-                    sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package'
+                    sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package -U'
                 }
             }
         }
@@ -49,7 +49,7 @@ pipeline  {
             }         
             steps{                               
                 script{
-                    sh 'cp pom.xml target/my-app.1.1.${BUILD_NUMBER}.pom'
+                    sh 'cp pom.xml target/my-app-1.1.${BUILD_NUMBER}-SNAPSHOT.pom'
                     def buildInfo = Artifactory.newBuildInfo()
                     buildInfo.env.collect()
                     server.upload spec: uploadSpec, buildInfo: buildInfo
