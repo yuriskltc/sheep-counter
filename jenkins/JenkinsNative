@@ -57,7 +57,7 @@ pipeline  {
         }
         stage ('PostBuild') {
             steps{
-                build job: 'CD pipeline', parameters [string(name: 'BUILDNUM', value: ${BUILD_NUMBER} )]
+                build job: 'CD pipeline', parameters: [string(name: 'BUILDNUM', value: ${BUILD_NUMBER} )]
             }
         }
     }
