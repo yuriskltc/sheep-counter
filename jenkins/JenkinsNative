@@ -4,6 +4,7 @@ pipeline  {
         uploadSpec = ''
         server = ''
     }
+    stages{
     stage ('Artifactory configuration') {         
         steps{
              server = Artifactory.server 'JFROGTST'
@@ -50,5 +51,6 @@ pipeline  {
         steps{
             build job: 'CD pipeline', parameters [string(name: 'BUILDNUM', value: ${BUILD_NUMBER} )]
         }
+    }
     }
 }
