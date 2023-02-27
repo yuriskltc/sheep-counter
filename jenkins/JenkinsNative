@@ -1,8 +1,8 @@
 
 pipeline  {
     environment {
-        uploadSpec
-        server
+        uploadSpec = ''
+        server = ''
     }
     stage ('Artifactory configuration') {         
         steps{
