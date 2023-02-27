@@ -1,14 +1,15 @@
 
 pipeline  {
+    agent any
     environment {
         uploadSpec = ''
         server = ''
     }
     stages{
         stage ('Artifactory configuration') {         
-            steps{
+            environment{
                  server = Artifactory.server 'JFROGTST'
-             }
+            }
         }
         stage('Fetch') {
             steps {
@@ -29,10 +30,13 @@ pipeline  {
             }
         }
     
-        stage ('Deploy') {      
+        stage ('Deploy') {   
+            environment{
+                buildInfo = Artifactory.newBuildInfo()
+            }
             steps{
                 sh 'cp pom.xml target/my-app.1.1.{BUILD_NUMBER}.pom'
-                buildInfo = Artifactory.newBuildInfo()
+                
                 uploadSpec = '''{
                     "files": [
                         {
