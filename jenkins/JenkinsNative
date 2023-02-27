@@ -30,9 +30,7 @@ pipeline  {
         }
         stage('Build') {
             steps{
-                //withMaven(maven:'Maven'){
-                    sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package -U'
-                //}
+                 sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package -U'
             }
         }
         stage ('Deploy') {   
