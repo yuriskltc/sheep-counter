@@ -1,44 +1,53 @@
 
-node  {
+pipeline  {
     def uploadSpec
     def server
 
-    stage ('Artifactory configuration') {
-         
-        server = Artifactory.server 'JFROGTST'
+    stage ('Artifactory configuration') {         
+        steps{
+             server = Artifactory.server 'JFROGTST'
+         }
     }
     stage('Fetch') {
-        git credentialsId: 'GITHUB', url: 'https://github.com/yuriskltc/simple-java-maven-app.git'
+        steps {
+            git credentialsId: 'GITHUB', url: 'https://github.com/yuriskltc/simple-java-maven-app.git'
+         }
     }
     withMaven(maven:'Maven') {
       stage('Test') {        
-            sh 'mvn -Dv=${BUILD_NUMBER} test'        
+            steps{
+                sh 'mvn -Dv=${BUILD_NUMBER} test'        
+            }
       }
       stage('Build') {
-        sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package'
+        steps{
+            sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package'
+        }
       }
     }
     stage ('Deploy') {      
-        sh 'cp pom.xml target/my-app.pom'
-        def buildInfo = Artifactory.newBuildInfo()
-        uploadSpec =
-             '''{
-                "files": [
-                    {
-                        "pattern": "target/*.jar",
-                        "target": "my-libs-release-local"                  
-                    }, {
-                        "pattern": "target/*.pom",
-                        "target": "my-libs-release-local"
-                    }
-                    
-                ]
-             }'''    
-        buildInfo.env.collect()
-        server.upload spec: uploadSpec, buildInfo: buildInfo
-        server.publishBuildInfo buildInfo
+        steps{
+            sh 'cp pom.xml target/my-app.1.1.{BUILD_NUMBER}.pom'
+            def buildInfo = Artifactory.newBuildInfo()
+            uploadSpec =
+                 '''{
+                    "files": [
+                        {
+                            "pattern": "target/*.jar",
+                            "target": "my-libs-release-local"                  
+                        }, {
+                            "pattern": "target/*.pom",
+                            "target": "my-libs-release-local"
+                        }]
+                }'''    
+            buildInfo.env.collect()
+            server.upload spec: uploadSpec, buildInfo: buildInfo
+            server.publishBuildInfo buildInfo
+         }
     }
     stage ('PostBuild') {
-         build job: 'CD pipeline', parameters [string(name: 'BUILDNUM', value: ${BUILD_NUMBER} )]
+        steps{
+            build job: 'CD pipeline', parameters [string(name: 'BUILDNUM', value: ${BUILD_NUMBER} )]
+        }
     }
 }
