@@ -4,6 +4,7 @@ node {
             server = Artifactory.server 'JFROGTST'
        }
        stage ('Download') {
+           sh 'echo passed buildnumber is ${BUILDNUM}'
            def downloadSpec =
             '''{
                 "files": [
@@ -14,8 +15,6 @@ node {
                     }
                 ]
             }'''
-            server.download spec: downloadSpec
-            
-        }
-        
+            server.download spec: downloadSpec            
+        }        
 }
