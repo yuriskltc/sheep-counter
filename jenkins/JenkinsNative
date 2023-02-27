@@ -4,6 +4,9 @@ pipeline  {
         uploadSpec = ''
         server = ''
     }
+    tools {
+        maven "MAVEN"
+    }
     stages{
         stage ('Artifactory configuration') {         
             steps{
@@ -20,16 +23,16 @@ pipeline  {
         
         stage('Test') {        
             steps{
-                withMaven(maven:'Maven'){
+                //withMaven(maven:'Maven'){
                     sh 'mvn -Dv=${BUILD_NUMBER} test'        
-                }
+                //}
             }
         }
         stage('Build') {
             steps{
-                withMaven(maven:'Maven'){
+                //withMaven(maven:'Maven'){
                     sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package -U'
-                }
+                //}
             }
         }
         stage ('Deploy') {   
