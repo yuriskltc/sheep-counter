@@ -7,10 +7,11 @@ pipeline  {
     }
     stages{
         stage ('Artifactory configuration') {         
-            environment{
-                 server = Artifactory.server 'JFROGTST'
+            steps{
+                script{
+                    server = Artifactory.server 'JFROGTST'
+                }
             }
-            steps{}
         }
         stage('Fetch') {
             steps {
@@ -33,7 +34,6 @@ pipeline  {
     
         stage ('Deploy') {   
             environment{
-                buildInfo = Artifactory.newBuildInfo()
                 uploadSpec = '''{
                     "files": [
                         {
@@ -46,10 +46,13 @@ pipeline  {
                 }'''    
             }         
             steps{                               
-                sh 'cp pom.xml target/my-app.1.1.{BUILD_NUMBER}.pom'
-                buildInfo.env.collect()
-                server.upload spec: uploadSpec, buildInfo: buildInfo
-                server.publishBuildInfo buildInfo
+                script{
+                    sh 'cp pom.xml target/my-app.1.1.{BUILD_NUMBER}.pom'
+                    def buildInfo = Artifactory.newBuildInfo()
+                    buildInfo.env.collect()
+                    server.upload spec: uploadSpec, buildInfo: buildInfo
+                    server.publishBuildInfo buildInfo
+                }
             }
         }
         stage ('PostBuild') {
