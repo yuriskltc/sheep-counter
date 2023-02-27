@@ -18,10 +18,10 @@ pipeline  {
                 git credentialsId: 'GITHUB', url: 'https://github.com/yuriskltc/simple-java-maven-app.git'
             }
         }
-        //withMaven(maven:'Maven') {
+        
         stage('Test') {        
             steps{
-                withMaven{
+                withMaven(maven:'Maven'){
                     sh 'mvn -Dv=${BUILD_NUMBER} test'        
                 }
             }
