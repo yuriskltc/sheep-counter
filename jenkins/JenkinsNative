@@ -15,13 +15,15 @@ pipeline  {
             git credentialsId: 'GITHUB', url: 'https://github.com/yuriskltc/simple-java-maven-app.git'
          }
     }
-    withMaven(maven:'Maven') {
-      stage('Test') {        
+    //withMaven(maven:'Maven') {
+    stage('Test') {        
             steps{
+                withMaven{
                 sh 'mvn -Dv=${BUILD_NUMBER} test'        
+                }
             }
-      }
-      stage('Build') {
+    }
+    stage('Build') {
         steps{
             sh 'mvn -B -DskipTests -Dv=${BUILD_NUMBER} clean package'
         }
@@ -30,9 +32,8 @@ pipeline  {
     stage ('Deploy') {      
         steps{
             sh 'cp pom.xml target/my-app.1.1.{BUILD_NUMBER}.pom'
-            def buildInfo = Artifactory.newBuildInfo()
-            uploadSpec =
-                 '''{
+            buildInfo = Artifactory.newBuildInfo()
+            uploadSpec = '''{
                     "files": [
                         {
                             "pattern": "target/*.jar",
