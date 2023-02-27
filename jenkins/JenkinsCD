@@ -16,5 +16,6 @@ node {
                 ]
             }'''
             server.download spec: downloadSpec            
+            sh 'java -jar /opt/my-app-1.1.${BUILDNUM}-SNAPSHOT.jar Base'
         }        
 }
