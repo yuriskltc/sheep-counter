@@ -22,11 +22,9 @@ pipeline  {
         }
         
         stage('Test') {        
-            steps{
-                //withMaven(maven:'Maven'){
+            steps{          
                     sh 'mvn -Dv=${BUILD_NUMBER} test'        
-                //}
-            }
+                }
         }
         stage('Build') {
             steps{
