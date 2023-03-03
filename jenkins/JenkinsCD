@@ -14,7 +14,9 @@ node {
                     }
                 ]
             }'''
-            server.download spec: downloadSpec            
+            server.download spec: downloadSpec           
+        }
+        stage('App start'){
             sh 'java -jar /opt/my-app-1.1.${BUILDNUM}-SNAPSHOT.jar Base'
         }        
 }
