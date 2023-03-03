@@ -20,6 +20,7 @@ public class AppTest
     public void testAppMessage()
     {
         App app = new App();
-        startsWith("Hello World!", app.getMessage());
+        String x = app.getMessage();
+        Assert.assertTrue(x.contains("Hello World!"));
     }
 }
