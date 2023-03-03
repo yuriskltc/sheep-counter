@@ -3,6 +3,7 @@ package com.mycompany.app;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Unit test for simple App.
@@ -20,7 +21,7 @@ public class AppTest
     public void testAppMessage()
     {
         App app = new App();
-        String x = app.getMessage();
-        Assert.assertTrue(x.contains("Hello World!"));
+        //String x = app.getMessage();
+        assertTrue(app.getMessage().contains("Hello World!"));
     }
 }
