@@ -1,7 +1,7 @@
 package com.mycompany.app;
 
 import java.util.Random;
-import java.lang.Thread;  
+import java.lang.Thread.Sleep;  
 
 
 
