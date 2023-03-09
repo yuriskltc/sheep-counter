@@ -20,11 +20,11 @@ public class App {
         }); 
         Random randomNum = new Random();
         int sheepCount = randomNum.nextInt(1000)+100;
-        System.out.println("Going to count " + sheepCount + "sheep");
+        System.out.println("Going to count " + sheepCount + " sheep");
         for (int i = 0; i < sheepCount; i++) {
             System.out.println(i + " sheep");
             try {
-                TimeUnit.SECONDS.sleep(random.nextInt(8)+3);            
+                TimeUnit.SECONDS.sleep(randomNum.nextInt(8)+3);            
             }
             catch (InterruptedException e) {
             System.out.println("Interrupted "
