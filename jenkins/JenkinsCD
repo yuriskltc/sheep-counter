@@ -8,8 +8,8 @@ node {
             '''{
                 "files": [
                     {
-                        "pattern": "my-libs-release-local/my-app-1.1.${BUILDNUM}*",
-                        "target": "/opt/"
+                        "pattern": "my-libs-release-local/sheep-counter-1.0.${BUILDNUM}*",
+                        "target": "/opt/sheepcounter/"
                     
                     }
                 ]
@@ -17,6 +17,6 @@ node {
             server.download spec: downloadSpec           
         }
         stage('App start'){
-            sh 'java -jar /opt/my-app-1.1.${BUILDNUM}-SNAPSHOT.jar Base'
+            sh 'java -jar /opt/sheepcounter/sheep-counter-1.0.${BUILDNUM}-SNAPSHOT.jar Base'
         }        
 }
