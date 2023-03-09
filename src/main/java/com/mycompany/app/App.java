@@ -35,11 +35,7 @@ public class App {
             }
         }
     }
-        static public void setShutdownProcess() {
-        shutdownFlag = true;
-    }
-
-    
+        
     public String getMessage() {
         return MESSAGE;
     }
