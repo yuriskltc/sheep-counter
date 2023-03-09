@@ -1,5 +1,7 @@
-package com.mycompany.app;
 import java.util.Random;
+import java.lang.Thread;  
+package com.mycompany.app;
+
 
 /**
  * Hello world!
