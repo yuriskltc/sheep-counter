@@ -15,7 +15,7 @@ node {
             '''{
                 "files": [
                     {
-                        "pattern": "my-libs-release-local/my-app-1.1.${BUILDNUM}*",
+                        "pattern": "my-libs-release-local/my-app-1.1.${BUILDNUM}-SNAPSHOT.jar",
                         "target": "/opt/scheduled/"
                     
                     }
