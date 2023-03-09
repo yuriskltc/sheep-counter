@@ -1,7 +1,7 @@
 package com.mycompany.app;
 
 import java.util.Random;
-import java.lang.Thread;  
+import java.util.concurrent.TimeUnit;
 
 
 
@@ -20,8 +20,7 @@ public class App {
         System.out.println("Random number between 1 and 100: " + showMe);
         for (int i = 0; i < 50; i++) {
             System.out.println(MESSAGE);
-            //java.lang.Thread.sleep(10000);            
-            Thread.sleep(10000);
+            TimeUnit.SECONDS.sleep(10);            
         }
     }
 
