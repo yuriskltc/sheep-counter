@@ -5,12 +5,9 @@ import java.util.concurrent.TimeUnit;
 
 
 
-/**
- * Hello world!
- */
 public class App {
 
-    private static final String MESSAGE = "Hello World! live demonstration 3.3.2023";
+    private static final String MESSAGE = "live demonstration 9.3.2023";
 
     public App() {}
 
@@ -22,10 +19,10 @@ public class App {
             }   
         }); 
         Random randomNum = new Random();
-        int showMe = randomNum.nextInt(100);
-        System.out.println("Random number between 1 and 100: " + showMe);
-        for (int i = 0; i < 50; i++) {
-            System.out.println(MESSAGE);
+        int sheepCount = randomNum.nextInt(1000)+100;
+        System.out.println("Going to count " + sheepCount + "sheep");
+        for (int i = 0; i < sheepCount; i++) {
+            System.out.println(i + "sheep");
             try {
                 TimeUnit.SECONDS.sleep(10);            
             }
