@@ -23,6 +23,10 @@ public class App {
             try {
                 TimeUnit.SECONDS.sleep(10);            
             }
+            catch (InterruptedException e) {
+            System.out.println("Interrupted "
+                               + "while Sleeping");
+            }
         }
     }
 
