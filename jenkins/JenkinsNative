@@ -56,7 +56,7 @@ pipeline  {
         }
         stage ('PostBuild - Simple deploy with long run') {
             steps{
-                build job: 'CD pipeline SheepCounter', parameters: [string(name: 'BUILDNUM', value: "${BUILD_NUMBER}" )]
+                build job: 'Sheep Counter CD', parameters: [string(name: 'BUILDNUM', value: "${BUILD_NUMBER}" )]
             }
         }        
     }
