@@ -1,0 +1,32 @@
+node {
+    def server
+        stage ('Artifactory configuration') {
+            server = Artifactory.server 'JFROGTST'
+       }
+       stage ('Deployment preparation'){
+            sh 'touch /opt/scheduled/.deploy.lock'
+            sh 'ps -ef | grep java|grep my-app-|awk '{print $2}| xargs kill -TERM '
+       }
+       stage ('Predeploy Cleanup'){
+            sh 'rm /opt/scheduled/*.jar'
+       }
+       stage ('Download') {
+           def downloadSpec =
+            '''{
+                "files": [
+                    {
+                        "pattern": "my-libs-release-local/my-app-1.1.${BUILDNUM}*",
+                        "target": "/opt/"
+                    
+                    }
+                ]
+            }'''
+            server.download spec: downloadSpec           
+        }
+        stage('App start'){
+            sh 'java -jar /opt/scheduled/my-app-1.1.${BUILDNUM}-SNAPSHOT.jar Base'
+        }
+        stage ('Postdeploy cleanup'){
+            sh 'rm /opt/scheduled/.deploy.lock'
+        }
+}
