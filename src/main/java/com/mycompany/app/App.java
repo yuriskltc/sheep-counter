@@ -15,6 +15,12 @@ public class App {
     public App() {}
 
     public static void main(String[] args) {
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+        @Override
+            public void run() {
+                System.out.println("Terminate signal received, exiting");
+            }   
+        }); 
         Random randomNum = new Random();
         int showMe = randomNum.nextInt(100);
         System.out.println("Random number between 1 and 100: " + showMe);
@@ -29,7 +35,11 @@ public class App {
             }
         }
     }
+        static public void setShutdownProcess() {
+        shutdownFlag = true;
+    }
 
+    
     public String getMessage() {
         return MESSAGE;
     }
