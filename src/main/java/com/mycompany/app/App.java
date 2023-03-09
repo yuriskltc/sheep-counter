@@ -10,7 +10,13 @@ public class App {
     public App() {}
 
     public static void main(String[] args) {
-        System.out.println(MESSAGE);
+        Random randomNum = new Random();
+        int showMe = randomNum.nextInt(100);
+        System.out.println("Random number between 1 and 100: " + showMe);
+        for (int i = 0; i < 50; i++) {
+            System.out.println(MESSAGE);
+            sleep
+        }
     }
 
     public String getMessage() {
