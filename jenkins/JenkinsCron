@@ -16,7 +16,7 @@ node {
                 "files": [
                     {
                         "pattern": "my-libs-release-local/my-app-1.1.${BUILDNUM}*",
-                        "target": "/opt/"
+                        "target": "/opt/scheduled/"
                     
                     }
                 ]
