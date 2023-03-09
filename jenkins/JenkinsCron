@@ -8,9 +8,9 @@ node {
             sh 'for i in `ps -ef | grep java|grep my-app-|awk \'{print $2}\'`; do kill -TERM $i; done'
        }
        stage ('Predeploy Cleanup'){
-            sh 'if [ -f /opt/scheduled/*.jar ] 
-                    then
-                    rm /opt/scheduled/*.jar'
+            sh 'if [ -f /opt/scheduled/*.jar ] \
+                    then \
+                    rm /opt/scheduled/*.jar' \
                     fi'
        }
        stage ('Download') {
