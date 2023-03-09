@@ -11,7 +11,7 @@ node {
             sh 'if [ -f /opt/scheduled/*.jar ] 
                     then
                     rm /opt/scheduled/*.jar'
-                    fi
+                    fi'
        }
        stage ('Download') {
            def downloadSpec =
