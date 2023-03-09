@@ -20,7 +20,11 @@ pipeline  {
                 git credentialsId: 'GITHUB', url: 'https://github.com/yuriskltc/sheep-counter.git'
             }
         }
-        
+        stage('Compile') {        
+            steps{          
+                    sh 'mvn -Dv=${BUILD_NUMBER} compile'        
+                }
+        }
         stage('Test') {        
             steps{          
                     sh 'mvn -Dv=${BUILD_NUMBER} test'        
