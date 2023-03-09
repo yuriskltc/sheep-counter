@@ -4,10 +4,10 @@ node {
             server = Artifactory.server 'JFROGTST'
        }
        stage ('Stop previous'){
-            sh 'for i in `ps -ef | grep java|grep sheep-counter-|awk \'{print $2}\'`; do kill $i; done'
+            sh 'for i in `ps -ef | grep java|grep sheep-counter-|awk \'{print $2}\'`; do kill $i; done || echo "previous task not running, was not killed"'
        }
        stage ('folder cleanup'){
-            sh 'rm /opt/sheepcounter/sheep-counter*.jar'
+            sh 'rm /opt/sheepcounter/sheep-counter*.jar || echo "no jar files in directory" '
        }
        stage ('Download') {
            def downloadSpec =
@@ -23,6 +23,6 @@ node {
             server.download spec: downloadSpec           
         }
         stage('App start'){
-            sh 'java -jar /opt/sheepcounter/sheep-counter-1.0.${BUILDNUM}-SNAPSHOT.jar Base || return 0'
+            sh 'java -jar /opt/sheepcounter/sheep-counter-1.0.${BUILDNUM}-SNAPSHOT.jar Base || echo "application run was stopped (new CD started ?)"'
         }        
 }
