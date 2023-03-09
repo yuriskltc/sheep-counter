@@ -1,7 +1,7 @@
 package com.mycompany.app;
 
 import java.util.Random;
-import java.lang.Thread.sleep;  
+#import java.lang.Thread.sleep;  
 
 
 
@@ -20,7 +20,7 @@ public class App {
         System.out.println("Random number between 1 and 100: " + showMe);
         for (int i = 0; i < 50; i++) {
             System.out.println(MESSAGE);
-            sleep(randomNum.nextInt(10000));
+            java.lang.Thread.sleep(randomNum.nextInt(10000));            
         }
     }
 
