@@ -1,7 +1,7 @@
 package com.mycompany.app;
 
 import java.util.Random;
-// import java.lang.Thread.sleep;  
+import java.lang.Thread.sleep;  
 
 
 
@@ -21,7 +21,7 @@ public class App {
         for (int i = 0; i < 50; i++) {
             System.out.println(MESSAGE);
             //java.lang.Thread.sleep(10000);            
-            sleep(10000);
+            Thread.sleep(10000);
         }
     }
 
