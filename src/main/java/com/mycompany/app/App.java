@@ -19,7 +19,7 @@ public class App {
         @Override
             public void run() {
                 System.out.println("Terminate signal received, exiting");
-                exit(0);
+                System.exit(0);
             }   
         }); 
         Random randomNum = new Random();
