@@ -5,7 +5,7 @@ node {
        }
        stage ('Deployment preparation'){
             sh 'touch /opt/scheduled/.deploy.lock'
-            sh 'ps -ef | grep java|grep my-app-|awk '{print $2}| xargs kill -TERM '
+            sh 'ps -ef | grep java|grep my-app-|awk \'{print $2}\'| xargs kill -TERM '
        }
        stage ('Predeploy Cleanup'){
             sh 'rm /opt/scheduled/*.jar'
