@@ -1,0 +1,6 @@
+node {
+    def server       
+       stage ('STOP PROCESS'){
+            sh 'for i in `ps -ef | grep java|grep sheep-counter-|awk \'{print $2}\'`; do kill $i; done || ( echo "previous task not running, was not killed" && exit 1 )'
+       }
+}
