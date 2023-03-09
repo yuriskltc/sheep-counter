@@ -22,9 +22,9 @@ public class App {
         int sheepCount = randomNum.nextInt(1000)+100;
         System.out.println("Going to count " + sheepCount + "sheep");
         for (int i = 0; i < sheepCount; i++) {
-            System.out.println(i + "sheep");
+            System.out.println(i + " sheep");
             try {
-                TimeUnit.SECONDS.sleep(10);            
+                TimeUnit.SECONDS.sleep(random.nextInt(8)+3);            
             }
             catch (InterruptedException e) {
             System.out.println("Interrupted "
