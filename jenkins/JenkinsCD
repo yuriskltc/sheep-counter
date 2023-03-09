@@ -1,14 +1,20 @@
 node {
     def server
-        stage ('Artifactory configuration') {
+       stage ('Artifactory configuration') {
             server = Artifactory.server 'JFROGTST'
+       }
+       stage ('Stop previous'){
+            sh 'for i in `ps -ef | grep java|grep sheep-counter-|awk \'{print $2}\'`; do kill $i; done'
+       }
+       stage ('folder cleanup'){
+            sh 'rm /opt/sheepcounter/sheep-counter*.jar'
        }
        stage ('Download') {
            def downloadSpec =
             '''{
                 "files": [
                     {
-                        "pattern": "my-libs-release-local/sheep-counter-1.0.${BUILDNUM}*",
+                        "pattern": "my-libs-release-local/sheep-counter-1.0.${BUILDNUM}*.jar",
                         "target": "/opt/sheepcounter/"
                     
                     }
@@ -17,6 +23,6 @@ node {
             server.download spec: downloadSpec           
         }
         stage('App start'){
-            sh 'java -jar /opt/sheepcounter/sheep-counter-1.0.${BUILDNUM}-SNAPSHOT.jar Base'
+            sh 'java -jar /opt/sheepcounter/sheep-counter-1.0.${BUILDNUM}-SNAPSHOT.jar Base || return 0'
         }        
 }
