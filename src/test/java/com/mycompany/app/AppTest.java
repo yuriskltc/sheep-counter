@@ -12,12 +12,12 @@ public class AppTest
 {
     @Test
     public void testAppConstructor() {
-        assertTrue("Dummy constructor test, always true.", 2>1);
+        assertTrue(true, "Dummy constructor test, always true.");
     }
 
     @Test
     public void testAppMessage()
     {
-        assertTrue("Dummy message output test, always true.", 2>1);
+        assertTrue(true, "Dummy message output test, always true.");
     }
 }
