@@ -54,9 +54,14 @@ pipeline  {
                 }
             }
         }
-        stage ('PostBuild') {
+        stage ('PostBuild - Simple deploy') {
             steps{
                 build job: 'CD pipeline', parameters: [string(name: 'BUILDNUM', value: "${BUILD_NUMBER}" )]
+            }
+        }
+        stage ('PostBuild - Crontab deploy') {
+            steps{
+                build job: 'CD pipeline Cron', parameters: [string(name: 'BUILDNUM', value: "${BUILD_NUMBER}" )]
             }
         }
     }
