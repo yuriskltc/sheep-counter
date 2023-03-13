@@ -11,7 +11,7 @@ pipeline  {
         stage ('Artifactory configuration') {         
             steps{
                 script{
-                    server = Artifactory.server 'JFROGTST'
+                    server = Artifactory.server 'JFROGTST' 
                 }
             }
         }
