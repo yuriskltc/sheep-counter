@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 public class App {
 
-    private static final String MESSAGE = "live demonstration 9.3.2023";
+    private static final String MESSAGE = "live demonstration 13.3.2023";
 
     public App() {}
 
